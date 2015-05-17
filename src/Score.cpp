@@ -1,6 +1,6 @@
 #include "Score.h"
 
-Score::Score(Line line) {
+Score::Score(Line line) : line_(line) {
 
 }
 
@@ -9,5 +9,5 @@ Score::~Score() {
 }
 
 int Score::Total() {
-	return 0;
+	return line_.NextRoll().Knocks();
 }
