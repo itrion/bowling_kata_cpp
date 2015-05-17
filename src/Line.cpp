@@ -11,5 +11,15 @@ bool Line::HasRolls() {
 }
 
 Roll Line::NextRoll() {
-	return Roll{line_[index_++]};
+	int current_index = index_++;
+	if (line_[current_index] == '-')
+		return Roll(0);
+	if (line_[current_index] == '/')
+		return Roll(10 - AsInt(line_[current_index - 1]));
+	else
+		return Roll(AsInt(line_[current_index]));
+}
+
+int Line::AsInt(const char& rollChar) {
+	return rollChar - 48;
 }

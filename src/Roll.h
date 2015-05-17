@@ -2,10 +2,10 @@
 
 class Roll {
 private:
-	char knocks_;
+	int knocks_;
 
 public:
-	Roll(char knocks);
+	Roll(int knocks);
 	int Knocks();
 };
 

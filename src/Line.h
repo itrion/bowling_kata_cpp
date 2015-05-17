@@ -17,4 +17,6 @@ public:
 	bool HasRolls();
 
 	Roll NextRoll();
+
+	int AsInt(const char& rollChar);
 };
