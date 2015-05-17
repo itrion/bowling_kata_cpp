@@ -9,8 +9,8 @@ using std::string;
 class Line {
 
 private:
-	string const& line_;
 	int index_;
+	string const& line_;
 	std::map<char, std::function<Roll(void)>> roll_factory_;
 
 public:

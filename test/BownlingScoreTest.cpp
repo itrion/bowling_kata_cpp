@@ -27,5 +27,11 @@ SCENARIO() {
 				REQUIRE(Score{Line{"4/------------------"}}.Total() == 10);
 			}
 		}
+
+		WHEN("a spare in the second frame and no more knocks"){
+			THEN("the score is 10"){
+				REQUIRE(Score{Line{"--4/----------------"}}.Total() == 10);
+			}
+		}
 	}
 }
