@@ -9,5 +9,8 @@ Score::~Score() {
 }
 
 int Score::Total() {
-	return line_.NextRoll().Knocks();
+	int total = 0;
+	while (line_.HasRolls())
+		total += line_.NextRoll().Knocks();
+	return total;
 }

@@ -14,5 +14,7 @@ public:
 	Line(const string& input);
 	~Line();
 
+	bool HasRolls();
+
 	Roll NextRoll();
 };

@@ -15,5 +15,11 @@ SCENARIO() {
 				REQUIRE(Score{Line{"5-------------------"}}.Total() == 5);
 			}
 		}
+
+		WHEN("knocks in every roll but no spare or strike"){
+			THEN("score is the sum of all rolls knocks") {
+				REQUIRE(Score{Line{"44444444444444444444"}}.Total() == 80);
+			}
+		}
 	}
 }
