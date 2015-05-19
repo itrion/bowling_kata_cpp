@@ -27,16 +27,23 @@ SCENARIO("FrameCreation") {
 			}
 		}
 
-		WHEN("spare in the first frame but no one knocks") {
-			THEN("only the first frame should have 10 knocks") {
-				auto frames = Line("4/------------------").GetFrames();
+		WHEN("all frames where spare") {
+			THEN("every frame knocks is ten") {
+				auto frames = Line("1/2/3/4/5/6/7/8/9/-/-").GetFrames();
+				for (auto frame : frames) {
+					REQUIRE(frame->Knocks() == 10);
+				}
+			}
+		}
+	}
 
-				REQUIRE(frames[0]->Knocks() == 10);
-
-				std::for_each(
-						frames.begin() + 1,
-						frames.end(),
-						[](shared_ptr<Frame> frame) { REQUIRE(frame->Knocks() == 0); });
+	GIVEN("a spare") {
+		WHEN("next roll is 0") {
+			THEN("knocks is 10 and bonus is 0") {
+				auto frames = Line("1/------------------").GetFrames();
+				shared_ptr<Frame> frame = frames[0];
+				REQUIRE(frame->Knocks() == 10);
+				REQUIRE(frame->Bonus() == 0);
 			}
 		}
 	}

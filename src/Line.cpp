@@ -19,7 +19,7 @@ Roll Line::NextRoll() {
 
 vector<shared_ptr<Frame>> Line::GetFrames() {
 	vector<shared_ptr<Frame>> frames;
-	for (int roll_index = 0; roll_index < line_.size(); roll_index += 2) {
+	for (int roll_index = 0; roll_index < 20; roll_index += 2) {
 		frames.push_back(std::make_shared<Frame>(Knocks(roll_index) + Knocks(roll_index + 1)));
 	}
 	return frames;

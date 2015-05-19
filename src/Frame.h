@@ -7,5 +7,6 @@ private:
 public:
 	Frame(int knocks);
 	int Knocks();
+	int Bonus();
 };
 
