@@ -17,7 +17,9 @@ private:
 	string const& line_;
 	std::map<char, std::function<Roll(void)>> roll_factory_;
 
+	int AsInt(const char& rollChar);
 public:
+
 	Line(const string& input);
 
 	~Line();
@@ -26,9 +28,7 @@ public:
 
 	Roll NextRoll();
 
-	int AsInt(const char& rollChar);
-
 	vector<shared_ptr<Frame>> GetFrames();
 
-	int Knocks(int roll_index);
+	shared_ptr<Roll> AsRoll(int index);
 };

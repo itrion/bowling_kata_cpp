@@ -1,6 +1,10 @@
 #include "Frame.h"
 
-Frame::Frame(int knocks) : knocks_(knocks) {
+Frame::Frame(int knocks) : Frame(knocks, 0) {
+}
+
+Frame::Frame(int knocks, int bonus) : knocks_(knocks), bonus_(bonus) {
+
 }
 
 int Frame::Knocks() {
@@ -8,5 +12,5 @@ int Frame::Knocks() {
 }
 
 int Frame::Bonus() {
-	return 0;
+	return bonus_;
 }

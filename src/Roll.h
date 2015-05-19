@@ -6,6 +6,9 @@ private:
 
 public:
 	Roll(int knocks);
-	int Knocks();
+	virtual ~Roll();
+	virtual int Knocks();
+
+	virtual bool IsSpare();
 };
 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Line.h"
+#include "SpareRoll.h"
 
 using std::vector;
 using std::shared_ptr;
@@ -20,19 +21,23 @@ Roll Line::NextRoll() {
 vector<shared_ptr<Frame>> Line::GetFrames() {
 	vector<shared_ptr<Frame>> frames;
 	for (int roll_index = 0; roll_index < 20; roll_index += 2) {
-		frames.push_back(std::make_shared<Frame>(Knocks(roll_index) + Knocks(roll_index + 1)));
+		auto current_roll = AsRoll(roll_index);
+		auto second_roll = AsRoll(roll_index + 1);
+		int knocks = current_roll->Knocks() + second_roll->Knocks();
+		int bonus = 0;
+		if (second_roll->IsSpare()) bonus = AsRoll(roll_index + 2)->Knocks();
+		frames.push_back(std::make_shared<Frame>(knocks, bonus));
 	}
 	return frames;
 }
 
-int Line::Knocks(int roll_index){
-	char roll = line_[roll_index];
-	if (roll == '-') return 0;
-	if (roll == '/') return 10 - Knocks(roll_index - 1);
-	return AsInt(roll);
+int Line::AsInt(const char& rollChar) {
+	return rollChar - 48;
 }
 
-int Line::AsInt(const char& rollChar) {
-	if (rollChar == '-') return 0;
-	return rollChar - 48;
+shared_ptr<Roll> Line::AsRoll(int index) {
+	char roll_char = line_[index];
+	if (roll_char == '-') return std::make_shared<Roll>(0);
+	if (roll_char == '/') return std::make_shared<SpareRoll>(10 - AsRoll(index - 1)->Knocks());
+	return std::make_shared<Roll>(AsInt(roll_char));
 }

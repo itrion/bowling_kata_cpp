@@ -1,6 +1,5 @@
 #include "catch.hpp"
 #include "../src/Line.h"
-#include "../src/Frame.h"
 
 using std::vector;
 
@@ -44,6 +43,15 @@ SCENARIO("FrameCreation") {
 				shared_ptr<Frame> frame = frames[0];
 				REQUIRE(frame->Knocks() == 10);
 				REQUIRE(frame->Bonus() == 0);
+			}
+		}
+
+		WHEN("next roll is 9") {
+			THEN("knocks is 10 and bonus is 9") {
+				auto frames = Line("1/9-----------------").GetFrames();
+				shared_ptr<Frame> frame = frames[0];
+				REQUIRE(frame->Knocks() == 10);
+				REQUIRE(frame->Bonus() == 9);
 			}
 		}
 	}
