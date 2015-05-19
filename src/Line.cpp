@@ -1,7 +1,10 @@
 #include <iostream>
 #include "Line.h"
 
-Line::Line(const string& input) : line_(input), roll_factory_{} , index_(0){
+using std::vector;
+using std::shared_ptr;
+
+Line::Line(const string& input) : line_(input), roll_factory_{}, index_(0) {
 }
 
 Line::~Line() { }
@@ -11,13 +14,25 @@ bool Line::HasRolls() {
 }
 
 Roll Line::NextRoll() {
-	int current_index = index_++;
-	char roll = line_[current_index];
-	if (roll == '-') return Roll(0);
-	if (roll == '/') return Roll(10 - AsInt(line_[current_index - 1]));
-	return Roll(AsInt(roll));
+	return Roll(0);
+}
+
+vector<shared_ptr<Frame>> Line::GetFrames() {
+	vector<shared_ptr<Frame>> frames;
+	for (int roll_index = 0; roll_index < line_.size(); roll_index += 2) {
+		frames.push_back(std::make_shared<Frame>(Knocks(roll_index) + Knocks(roll_index + 1)));
+	}
+	return frames;
+}
+
+int Line::Knocks(int roll_index){
+	char roll = line_[roll_index];
+	if (roll == '-') return 0;
+	if (roll == '/') return 10 - Knocks(roll_index - 1);
+	return AsInt(roll);
 }
 
 int Line::AsInt(const char& rollChar) {
+	if (rollChar == '-') return 0;
 	return rollChar - 48;
 }

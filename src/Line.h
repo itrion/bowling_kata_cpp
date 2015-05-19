@@ -1,10 +1,14 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <map>
 #include "Roll.h"
+#include "Frame.h"
 
 using std::string;
+using std::vector;
+using std::shared_ptr;
 
 class Line {
 
@@ -23,4 +27,8 @@ public:
 	Roll NextRoll();
 
 	int AsInt(const char& rollChar);
+
+	vector<shared_ptr<Frame>> GetFrames();
+
+	int Knocks(int roll_index);
 };
