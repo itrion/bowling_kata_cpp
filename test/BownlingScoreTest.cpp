@@ -33,5 +33,11 @@ SCENARIO() {
 				REQUIRE(Score{Line{"--4/----------------"}}.Total() == 10);
 			}
 		}
+		
+		WHEN("a spare has knocks in the next roll"){
+			THEN("the score of the spare frame is 10 plus the knocks of the next roll") {
+				REQUIRE(Score{Line{"1/9-----------------"}}.Total() == 28);
+			}
+		}
 	}
 }
