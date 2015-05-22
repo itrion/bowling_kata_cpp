@@ -10,7 +10,8 @@ Score::~Score() {
 
 int Score::Total() {
 	int total = 0;
-	while (line_.HasRolls())
-		total += line_.NextRoll().Knocks();
+	for (auto frame : line_.GetFrames()) {
+		total += frame->Knocks() + frame->Bonus();
+	}
 	return total;
 }

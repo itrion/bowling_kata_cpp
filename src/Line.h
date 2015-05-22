@@ -12,23 +12,17 @@ using std::shared_ptr;
 
 class Line {
 
-private:
-	int index_;
-	string const& line_;
-	std::map<char, std::function<Roll(void)>> roll_factory_;
-
-	int AsInt(const char& rollChar);
 public:
-
 	Line(const string& input);
 
 	~Line();
 
-	bool HasRolls();
-
-	Roll NextRoll();
-
 	vector<shared_ptr<Frame>> GetFrames();
+
+private:
+	string const& line_;
+
+	int AsInt(const char& rollChar);
 
 	shared_ptr<Roll> AsRoll(int index);
 };

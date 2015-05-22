@@ -6,32 +6,25 @@
 using std::vector;
 using std::shared_ptr;
 
-Line::Line(const string& input) : line_(input), roll_factory_{}, index_(0) {
+Line::Line(const string& input) : line_(input) {
 }
 
 Line::~Line() { }
 
-bool Line::HasRolls() {
-	return index_ < line_.length();
-}
-
-Roll Line::NextRoll() {
-	return Roll(0);
-}
-
 vector<shared_ptr<Frame>> Line::GetFrames() {
 	vector<shared_ptr<Frame>> frames;
-	for (int roll_index = 0; roll_index < 20; roll_index += 2) {
+	for (int roll_index = 0; frames.size() < 10; roll_index++) {
 		int bonus = 0;
 		auto current_roll = AsRoll(roll_index);
 		auto second_roll = AsRoll(roll_index + 1);
-		int knocks = current_roll->Knocks();
+		int knocks = current_roll->Knocks() + second_roll->Knocks();
 		if (current_roll->IsStrike()) {
 			bonus = second_roll->Knocks() + AsRoll(roll_index + 2)->Knocks();
 			knocks -= second_roll->Knocks();
+			roll_index--;
 		}
-		knocks += second_roll->Knocks();
 		if (second_roll->IsSpare()) bonus = AsRoll(roll_index + 2)->Knocks();
+		roll_index++;
 		frames.push_back(std::make_shared<Frame>(knocks, bonus));
 	}
 	return frames;
