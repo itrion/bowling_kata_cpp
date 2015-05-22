@@ -22,11 +22,15 @@ Roll Line::NextRoll() {
 vector<shared_ptr<Frame>> Line::GetFrames() {
 	vector<shared_ptr<Frame>> frames;
 	for (int roll_index = 0; roll_index < 20; roll_index += 2) {
+		int bonus = 0;
 		auto current_roll = AsRoll(roll_index);
 		auto second_roll = AsRoll(roll_index + 1);
-		int knocks = current_roll->Knocks() + second_roll->Knocks();
-		int bonus = 0;
-		if (current_roll->IsStrike()) bonus = AsRoll(roll_index + 1)->Knocks() + AsRoll(roll_index + 2)->Knocks();
+		int knocks = current_roll->Knocks();
+		if (current_roll->IsStrike()) {
+			bonus = second_roll->Knocks() + AsRoll(roll_index + 2)->Knocks();
+			knocks -= second_roll->Knocks();
+		}
+		knocks += second_roll->Knocks();
 		if (second_roll->IsSpare()) bonus = AsRoll(roll_index + 2)->Knocks();
 		frames.push_back(std::make_shared<Frame>(knocks, bonus));
 	}

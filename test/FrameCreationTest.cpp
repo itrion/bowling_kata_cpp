@@ -72,5 +72,25 @@ SCENARIO("FrameCreation") {
 				}
 			}
 		}
+
+		WHEN("next 2 rolls are 1 each"){
+			THEN("knocks is 10"){
+				auto frames = Line("X11----------------").GetFrames();
+				auto strike = frames.at(0);
+				REQUIRE(strike->Knocks() == 10);
+				AND_THEN("bonus is 0"){
+					REQUIRE(strike->Bonus() == 2);
+				}
+			}
+		}
+
+		/*
+		 * TODO next two rolls has different values
+		 * TODO next two rolls are spare
+		 * TODO next two rolls are strikes
+		 * TODO strike in the last frame next rolls are 0
+		 * TODO strike in the last frame  next rolls are different values
+		 * TODO strike in the last frame  next rolls are 10
+		 * */
 	}
 }
