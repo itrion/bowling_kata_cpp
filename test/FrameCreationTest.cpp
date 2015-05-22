@@ -42,7 +42,7 @@ SCENARIO("FrameCreation") {
 				auto frames = Line("1/------------------").GetFrames();
 				auto frame = frames.at(0);
 				REQUIRE(frame->Knocks() == 10);
-				AND_THEN("bonus is 0"){
+				AND_THEN("bonus is 0") {
 					REQUIRE(frame->Bonus() == 0);
 				}
 			}
@@ -61,25 +61,36 @@ SCENARIO("FrameCreation") {
 		}
 	}
 
-	GIVEN("a strike"){
-		WHEN("next 2 rolls are 0"){
-			THEN("knocks is 10"){
+	GIVEN("a strike") {
+		WHEN("next 2 rolls are 0") {
+			THEN("knocks is 10") {
 				auto frames = Line("X------------------").GetFrames();
 				auto strike = frames.at(0);
 				REQUIRE(strike->Knocks() == 10);
-				AND_THEN("bonus is 0"){
+				AND_THEN("bonus is 0") {
 					REQUIRE(strike->Bonus() == 0);
 				}
 			}
 		}
 
-		WHEN("next 2 rolls are 1 each"){
-			THEN("knocks is 10"){
+		WHEN("next 2 rolls are 1 each") {
+			THEN("knocks is 10") {
 				auto frames = Line("X11----------------").GetFrames();
 				auto strike = frames.at(0);
 				REQUIRE(strike->Knocks() == 10);
-				AND_THEN("bonus is 0"){
+				AND_THEN("bonus is 0") {
 					REQUIRE(strike->Bonus() == 2);
+				}
+			}
+		}
+
+		WHEN("next 2 rolls are 5 and 4") {
+			THEN("knocks is 10") {
+				auto frames = Line("X54----------------").GetFrames();
+				auto strike = frames.at(0);
+				REQUIRE(strike->Knocks() == 10);
+				AND_THEN("bonus is 9") {
+					REQUIRE(strike->Bonus() == 9);
 				}
 			}
 		}
