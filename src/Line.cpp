@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Line.h"
 #include "SpareRoll.h"
+#include "StrikeRoll.h"
 
 using std::vector;
 using std::shared_ptr;
@@ -25,6 +26,7 @@ vector<shared_ptr<Frame>> Line::GetFrames() {
 		auto second_roll = AsRoll(roll_index + 1);
 		int knocks = current_roll->Knocks() + second_roll->Knocks();
 		int bonus = 0;
+		if (current_roll->IsStrike()) bonus = AsRoll(roll_index + 1)->Knocks() + AsRoll(roll_index + 2)->Knocks();
 		if (second_roll->IsSpare()) bonus = AsRoll(roll_index + 2)->Knocks();
 		frames.push_back(std::make_shared<Frame>(knocks, bonus));
 	}
@@ -39,5 +41,6 @@ shared_ptr<Roll> Line::AsRoll(int index) {
 	char roll_char = line_[index];
 	if (roll_char == '-') return std::make_shared<Roll>(0);
 	if (roll_char == '/') return std::make_shared<SpareRoll>(10 - AsRoll(index - 1)->Knocks());
+	if (roll_char == 'X') return std::make_shared<StrikeRoll>(10);
 	return std::make_shared<Roll>(AsInt(roll_char));
 }

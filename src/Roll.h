@@ -10,5 +10,6 @@ public:
 	virtual int Knocks();
 
 	virtual bool IsSpare();
+	virtual bool IsStrike();
 };
 

@@ -40,7 +40,7 @@ SCENARIO("FrameCreation") {
 		WHEN("next roll is 0") {
 			THEN("knocks is 10") {
 				auto frames = Line("1/------------------").GetFrames();
-				shared_ptr<Frame> frame = frames[0];
+				auto frame = frames.at(0);
 				REQUIRE(frame->Knocks() == 10);
 				AND_THEN("bonus is 0"){
 					REQUIRE(frame->Bonus() == 0);
@@ -51,11 +51,24 @@ SCENARIO("FrameCreation") {
 		WHEN("next roll is 9") {
 			THEN("knocks is 10 and ") {
 				auto frames = Line("1/9-----------------").GetFrames();
-				shared_ptr<Frame> frame = frames[0];
+				auto frame = frames.at(0);
 				REQUIRE(frame->Knocks() == 10);
 
 				AND_THEN("bonus is 9") {
 					REQUIRE(frame->Bonus() == 9);
+				}
+			}
+		}
+	}
+
+	GIVEN("a strike"){
+		WHEN("next 2 rolls are 0"){
+			THEN("knocks is 10"){
+				auto frames = Line("X------------------").GetFrames();
+				auto strike = frames.at(0);
+				REQUIRE(strike->Knocks() == 10);
+				AND_THEN("bonus is 0"){
+					REQUIRE(strike->Bonus() == 0);
 				}
 			}
 		}
