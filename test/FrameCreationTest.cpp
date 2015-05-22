@@ -61,7 +61,7 @@ SCENARIO("FrameCreation") {
 		}
 	}
 
-	GIVEN("a strike") {
+	GIVEN("a strike at the beginning") {
 		WHEN("next 2 rolls are 0") {
 			THEN("knocks is 10") {
 				auto frames = Line("X------------------").GetFrames();
@@ -108,20 +108,13 @@ SCENARIO("FrameCreation") {
 
 		WHEN("next 2 rolls are a strike each") {
 			THEN("knocks is 10") {
-				auto frames = Line("XXX----------------").GetFrames();
-				auto strike = frames.at(0);
+				auto frames = Line("------------------XXX").GetFrames();
+				auto strike = frames.at(9);
 				REQUIRE(strike->Knocks() == 10);
 				AND_THEN("bonus is 20") {
 					REQUIRE(strike->Bonus() == 20);
 				}
 			}
 		}
-
-		/*
-		 * TODO next two rolls are strikes
-		 * TODO strike in the last frame next rolls are 0
-		 * TODO strike in the last frame  next rolls are different values
-		 * TODO strike in the last frame  next rolls are 10
-		 * */
 	}
 }
