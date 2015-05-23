@@ -1,3 +1,4 @@
+#include <iostream>
 #include "catch.hpp"
 #include "../src/Line.h"
 
@@ -8,7 +9,7 @@ SCENARIO("FrameCreation") {
 	GIVEN("a line of bowling") {
 		WHEN("there were no knocks") {
 			THEN("it has ten frames with 0 knocks each") {
-				auto frames = Line("--------------------").GetFrames();
+				auto frames = Line("--------------------").Frames();
 				REQUIRE(frames.size() == 10);
 				for (auto frame : frames) {
 					REQUIRE(frame->Knocks() == 0);
@@ -18,7 +19,7 @@ SCENARIO("FrameCreation") {
 
 		WHEN("3 knocks in all rolls") {
 			THEN("it has 10 frames with 6 knocks each") {
-				auto frames = Line("33333333333333333333").GetFrames();
+				auto frames = Line("33333333333333333333").Frames();
 				REQUIRE(frames.size() == 10);
 				for (auto frame : frames) {
 					REQUIRE(frame->Knocks() == 6);
@@ -28,7 +29,8 @@ SCENARIO("FrameCreation") {
 
 		WHEN("all frames where spare") {
 			THEN("every frame knocks is ten") {
-				auto frames = Line("1/2/3/4/5/6/7/8/9/-/-").GetFrames();
+				auto frames = Line("1/2/3/4/5/6/7/8/9/-/-").Frames();
+				REQUIRE(frames.size() == 10);
 				for (auto frame : frames) {
 					REQUIRE(frame->Knocks() == 10);
 				}
@@ -39,7 +41,7 @@ SCENARIO("FrameCreation") {
 	GIVEN("a spare") {
 		WHEN("next roll is 0") {
 			THEN("knocks is 10") {
-				auto frames = Line("1/------------------").GetFrames();
+				auto frames = Line("1/------------------").Frames();
 				auto frame = frames.at(0);
 				REQUIRE(frame->Knocks() == 10);
 				AND_THEN("bonus is 0") {
@@ -50,7 +52,7 @@ SCENARIO("FrameCreation") {
 
 		WHEN("next roll is 9") {
 			THEN("knocks is 10 and ") {
-				auto frames = Line("1/9-----------------").GetFrames();
+				auto frames = Line("1/9-----------------").Frames();
 				auto frame = frames.at(0);
 				REQUIRE(frame->Knocks() == 10);
 
@@ -64,7 +66,7 @@ SCENARIO("FrameCreation") {
 	GIVEN("a strike at the beginning") {
 		WHEN("next 2 rolls are 0") {
 			THEN("knocks is 10") {
-				auto frames = Line("X------------------").GetFrames();
+				auto frames = Line("X------------------").Frames();
 				auto strike = frames.at(0);
 				REQUIRE(strike->Knocks() == 10);
 				AND_THEN("bonus is 0") {
@@ -75,7 +77,7 @@ SCENARIO("FrameCreation") {
 
 		WHEN("next 2 rolls are 1 each") {
 			THEN("knocks is 10") {
-				auto frames = Line("X11----------------").GetFrames();
+				auto frames = Line("X11----------------").Frames();
 				auto strike = frames.at(0);
 				REQUIRE(strike->Knocks() == 10);
 				AND_THEN("bonus is 0") {
@@ -86,7 +88,7 @@ SCENARIO("FrameCreation") {
 
 		WHEN("next 2 rolls are 5 and 4") {
 			THEN("knocks is 10") {
-				auto frames = Line("X54----------------").GetFrames();
+				auto frames = Line("X54----------------").Frames();
 				auto strike = frames.at(0);
 				REQUIRE(strike->Knocks() == 10);
 				AND_THEN("bonus is 9") {
@@ -97,7 +99,7 @@ SCENARIO("FrameCreation") {
 
 		WHEN("next 2 rolls are a spare") {
 			THEN("knocks is 10") {
-				auto frames = Line("X5/----------------").GetFrames();
+				auto frames = Line("X5/----------------").Frames();
 				auto strike = frames.at(0);
 				REQUIRE(strike->Knocks() == 10);
 				AND_THEN("bonus is 10") {
@@ -108,7 +110,7 @@ SCENARIO("FrameCreation") {
 
 		WHEN("next 2 rolls are a strike each") {
 			THEN("knocks is 10") {
-				auto frames = Line("------------------XXX").GetFrames();
+				auto frames = Line("------------------XXX").Frames();
 				auto strike = frames.at(9);
 				REQUIRE(strike->Knocks() == 10);
 				AND_THEN("bonus is 20") {

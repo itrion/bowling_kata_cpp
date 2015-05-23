@@ -10,7 +10,7 @@ Score::~Score() {
 
 int Score::Total() {
 	int total = 0;
-	for (auto frame : line_.GetFrames()) {
+	for (auto frame : line_.Frames()) {
 		total += frame->Knocks() + frame->Bonus();
 	}
 	return total;

@@ -17,12 +17,17 @@ public:
 
 	~Line();
 
-	vector<shared_ptr<Frame>> GetFrames();
+	vector<shared_ptr<Frame>> Frames();
 
 private:
-	string const& line_;
+	vector<shared_ptr<Roll>> rolls_;
+	vector<shared_ptr<Frame>> frames_;
 
 	int AsInt(const char& rollChar);
 
-	shared_ptr<Roll> AsRoll(int index);
+	shared_ptr<Roll> AsRoll(const string& input, int& index);
+
+	void BuildRolls(const string& input);
+
+	void BuildFrames();
 };

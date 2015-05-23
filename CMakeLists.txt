@@ -14,4 +14,4 @@ set(TEST_SOURCE_FILES
     test/TestRunnrer.cpp
     test/FrameCreationTest.cpp)
 
-add_executable(TextRunner ${SOURCE_FILES} ${TEST_SOURCE_FILES} src/SpareRoll.cpp src/SpareRoll.h src/StrikeRoll.cpp src/StrikeRoll.h)
+add_executable(TextRunner ${SOURCE_FILES} ${TEST_SOURCE_FILES} src/SpareRoll.cpp src/SpareRoll.h src/StrikeRoll.cpp src/StrikeRoll.h src/FrameBuilder.cpp src/FrameBuilder.h)

@@ -47,7 +47,7 @@ SCENARIO() {
 		}
 
 		WHEN("all rolls are nine and miss") {
-			THEN("score is 300") {
+			THEN("score is 90") {
 				REQUIRE(Score(Line("9-9-9-9-9-9-9-9-9-9-")).Total() == 90);
 			}
 		}
